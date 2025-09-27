@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAssist - Student Dashboard</title>
+    <link rel="stylesheet" href="assets/css/design-system.css?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="student-dashboard">
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>EduAssist</h1>
+                    <span class="subtitle">Student Dashboard</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="student.html" class="nav-link active">👨‍🎓 Dashboard</a>
+                    <a href="index.html" class="nav-link">📤 Upload</a>
+                    <a href="quiz.html" class="nav-link">🧠 Quiz</a>
+                    <a href="chat.html" class="nav-link">🤖 AI Tutor</a>
+                    <a href="flashcards.html" class="nav-link">🃏 Flashcards</a>
+                    <button onclick="logout()" class="btn btn-sm btn-outline">Logout</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Stats Overview -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Learning Progress</h2>
+                    <p class="section-description">Track your educational journey and achievements</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">📚</div>
+                        </div>
+                        <h3 class="stat-value" id="uploaded-count">0</h3>
+                        <p class="stat-label">Content Uploaded</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">✅</div>
+                        </div>
+                        <h3 class="stat-value" id="processed-count">0</h3>
+                        <p class="stat-label">Content Processed</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">🧠</div>
+                        </div>
+                        <h3 class="stat-value" id="quiz-count">0</h3>
+                        <p class="stat-label">Quizzes Available</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">📈</div>
+                        </div>
+                        <h3 class="stat-value" id="avg-score">0%</h3>
+                        <p class="stat-label">Average Score</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="section">
+                <div class="grid grid-cols-2">
+                    <!-- Recent Content -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">📝 Recently Processed</h3>
+                            <p class="card-description">Your latest educational content</p>
+                        </div>
+                        <div class="card-body">
+                            <div id="recent-content" class="space-y-4">
+                                <div class="flex items-center justify-center" style="padding: 2rem; color: var(--neutral-400);">
+                                    Loading recent content...
+                                </div>
+                            </div>
+                            <div class="text-center" style="margin-top: 1.5rem;">
+                                <a href="index.html" class="btn btn-outline btn-sm">View All Content</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Quizzes -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">🎯 Available Quizzes</h3>
+                            <p class="card-description">Test your knowledge</p>
+                        </div>
+                        <div class="card-body">
+                            <div id="recent-quizzes" class="space-y-4">
+                                <div class="flex items-center justify-center" style="padding: 2rem; color: var(--neutral-400);">
+                                    Loading quizzes...
+                                </div>
+                            </div>
+                            <div class="text-center" style="margin-top: 1.5rem;">
+                                <a href="quiz.html" class="btn btn-outline btn-sm">View All Quizzes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="section quick-actions">
+                <div class="section-header">
+                    <h2 class="section-title">Quick Actions</h2>
+                    <p class="section-description">Jump into your learning activities</p>
+                </div>
+                
+                <div class="grid grid-cols-4">
+                    <div class="card" style="cursor: pointer; transition: all 0.2s ease;" onclick="location.href='index.html'">
+                        <div class="card-body text-center">
+                            <div class="stat-icon" style="margin: 0 auto 1rem auto;">📤</div>
+                            <h3 class="card-title" style="font-size: 1.125rem; margin-bottom: 0.5rem;">Upload Content</h3>
+                            <p class="card-description">Add new educational materials</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="cursor: pointer; transition: all 0.2s ease;" onclick="createRandomQuiz()">
+                        <div class="card-body text-center">
+                            <div class="stat-icon" style="margin: 0 auto 1rem auto;">🎲</div>
+                            <h3 class="card-title" style="font-size: 1.125rem; margin-bottom: 0.5rem;">Random Quiz</h3>
+                            <p class="card-description">Generate quiz from any content</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="cursor: pointer; transition: all 0.2s ease;" onclick="location.href='chat.html'">
+                        <div class="card-body text-center">
+                            <div class="stat-icon" style="margin: 0 auto 1rem auto;">🤖</div>
+                            <h3 class="card-title" style="font-size: 1.125rem; margin-bottom: 0.5rem;">Ask AI Tutor</h3>
+                            <p class="card-description">Get help with your studies</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="cursor: pointer; transition: all 0.2s ease;" onclick="window.location.href='flashcards.html'">
+                        <div class="card-body text-center">
+                            <div class="stat-icon" style="margin: 0 auto 1rem auto;">🃏</div>
+                            <h3 class="card-title" style="font-size: 1.125rem; margin-bottom: 0.5rem;">Flashcards</h3>
+                            <p class="card-description">Generate study flashcards</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Study Schedule -->
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📅 Today's Study Plan</h3>
+                        <p class="card-description">Personalized schedule for <span id="current-date"></span></p>
+                    </div>
+                    <div class="card-body">
+                        <div id="study-schedule" style="margin-bottom: 1.5rem;">
+                            <!-- Schedule items will be populated by JavaScript -->
+                        </div>
+                        <button class="btn btn-primary" onclick="generateStudyPlan()">📋 Generate New Study Plan</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+    <script src="assets/js/student.js?v=2"></script>
+</body>
+</html>

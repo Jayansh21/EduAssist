@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>EduAssist - Content Upload</title>
+    <link rel="stylesheet" href="assets/css/design-system.css?v=5">
+    <link rel="stylesheet" href="assets/css/main.css?v=5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>EduAssist</h1>
+                    <span class="subtitle">Content Upload</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="student.html" class="nav-link">👨‍🎓 Dashboard</a>
+                    <a href="index.html" class="nav-link active">📤 Upload</a>
+                    <a href="quiz.html" class="nav-link">🧠 Quiz</a>
+                    <a href="chat.html" class="nav-link">🤖 AI Tutor</a>
+                    <a href="flashcards.html" class="nav-link">🃏 Flashcards</a>
+                    <button onclick="logout()" class="btn btn-sm btn-outline">Logout</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Upload Educational Content</h2>
+                    <p class="section-description">Transform your educational materials into interactive learning experiences</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <form id="upload-form">
+                            <div id="dropzone" class="dropzone">
+                                <div style="text-align: center; padding: 3rem;">
+                                    <div style="font-size: 4rem; margin-bottom: 1rem; color: var(--primary-400);">📁</div>
+                                    <h3 style="margin: 0 0 0.5rem 0; color: var(--neutral-700);">Drag & Drop Files Here</h3>
+                                    <p style="margin: 0 0 1.5rem 0; color: var(--neutral-500);">or click to browse</p>
+                                    <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+                                        <span style="background: var(--primary-100); color: var(--primary-700); padding: 0.25rem 0.75rem; border-radius: var(--radius-base); font-size: 0.875rem;">PDF</span>
+                                        <span style="background: var(--primary-100); color: var(--primary-700); padding: 0.25rem 0.75rem; border-radius: var(--radius-base); font-size: 0.875rem;">MP4</span>
+                                        <span style="background: var(--primary-100); color: var(--primary-700); padding: 0.25rem 0.75rem; border-radius: var(--radius-base); font-size: 0.875rem;">MP3</span>
+                                        <span style="background: var(--primary-100); color: var(--primary-700); padding: 0.25rem 0.75rem; border-radius: var(--radius-base); font-size: 0.875rem;">WAV</span>
+                                    </div>
+                                </div>
+                                <input id="file-input" type="file" multiple accept=".pdf,application/pdf,audio/*,video/*" style="display: none;" />
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 1.5rem;">
+                                <button id="upload-btn" type="submit" class="btn btn-primary btn-lg">
+                                    📤 Upload & Process
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Management Section -->
+            <section class="section">
+                <div class="grid grid-cols-2">
+                    <!-- Processed Content -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="display: flex; justify-content: between; align-items: center;">
+                                <div>
+                                    <h3 class="card-title">📝 Processed Content</h3>
+                                    <p class="card-description">AI-enhanced educational materials</p>
+                                </div>
+                                <button id="refresh-processed" class="btn btn-sm btn-outline">🔄 Refresh</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="processed-content-list" style="min-height: 300px;">
+                                <div style="text-align: center; padding: 2rem; color: var(--neutral-400);">
+                                    Loading processed content...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Uploaded Files -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="display: flex; justify-content: between; align-items: center;">
+                                <div>
+                                    <h3 class="card-title">📄 Uploaded Files</h3>
+                                    <p class="card-description">Your original files</p>
+                                </div>
+                                <button id="refresh-uploaded" class="btn btn-sm btn-outline">🔄 Refresh</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="uploaded-files-list" style="min-height: 300px;">
+                                <div style="text-align: center; padding: 2rem; color: var(--neutral-400);">
+                                    Loading uploaded files...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Content Viewer Modal -->
+    <div id="content-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">Content Viewer</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--neutral-200);">
+                    <button class="btn btn-sm btn-outline tab-btn active" onclick="switchTab('transcript')">📄 Transcript</button>
+                    <button class="btn btn-sm btn-outline tab-btn" onclick="switchTab('summary')">📝 Summary</button>
+                </div>
+                
+                <div id="transcript-content" class="tab-content">
+                    <div class="content-text" style="max-height: 400px; overflow-y: auto; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">
+                        Loading transcript...
+                    </div>
+                </div>
+                
+                <div id="summary-content" class="tab-content" style="display: none;">
+                    <div class="content-text" style="max-height: 400px; overflow-y: auto; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">
+                        Loading summary...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js?v=5"></script>
+    
+    <style>
+        /* Override header for upload page */
+        .app-header {
+            background: white !important;
+            color: var(--neutral-800) !important;
+            border-bottom: 1px solid var(--neutral-200) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .logo h1 {
+            color: var(--primary-600) !important;
+            text-shadow: none !important;
+        }
+        
+        .nav-link {
+            color: var(--neutral-600) !important;
+            border: 1px solid var(--neutral-200) !important;
+            background: transparent !important;
+        }
+        
+        .nav-link:hover {
+            background: var(--neutral-100) !important;
+            color: var(--neutral-700) !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .nav-link.active {
+            background: var(--primary-600) !important;
+            color: white !important;
+            border-color: var(--primary-600) !important;
+            box-shadow: none !important;
+        }
+
+        .dropzone {
+            border: 2px dashed var(--primary-300);
+            border-radius: var(--radius-xl);
+            background: var(--primary-50);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .dropzone:hover {
+            border-color: var(--primary-400);
+            background: var(--primary-100);
+        }
+        
+        .dropzone.dragover {
+            border-color: var(--primary-500);
+            background: var(--primary-100);
+            transform: scale(1.02);
+        }
+        
+        .tab-btn.active {
+            background-color: var(--primary-600);
+            color: white;
+            border-color: var(--primary-600);
+        }
+    </style>
+</body>
+</html>

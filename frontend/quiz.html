@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>EduAssist - Quiz Generator</title>
+    <link rel="stylesheet" href="assets/css/design-system.css?v=5">
+    <link rel="stylesheet" href="assets/css/quiz.css?v=5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>EduAssist</h1>
+                    <span class="subtitle">Quiz Generator</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="student.html" class="nav-link">👨‍🎓 Dashboard</a>
+                    <a href="index.html" class="nav-link">📤 Upload</a>
+                    <a href="quiz.html" class="nav-link active">🧠 Quiz</a>
+                    <a href="chat.html" class="nav-link">🤖 AI Tutor</a>
+                    <a href="flashcards.html" class="nav-link">🃏 Flashcards</a>
+                    <button onclick="logout()" class="btn btn-sm btn-outline">Logout</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Quiz Creation Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Create New Quiz</h2>
+                    <p class="section-description">Generate interactive assessments from your uploaded content</p>
+                </div>
+                
+                <div class="grid grid-cols-2">
+                    <!-- Quiz Creation Form -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Quiz Configuration</h3>
+                            <p class="card-description">Configure your quiz settings</p>
+                        </div>
+                        <div class="card-body">
+                            <form id="quiz-form">
+                                <div class="form-group">
+                                    <label class="form-label">Quiz Title</label>
+                                    <input type="text" id="quiz-title" class="form-input" placeholder="Enter quiz title" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Description</label>
+                                    <textarea id="quiz-description" class="form-textarea" rows="3" placeholder="Describe what this quiz covers"></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Content Source</label>
+                                    <select id="content-source" class="form-select" required>
+                                        <option value="">Select content source</option>
+                                        <!-- Options will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                
+                                <div class="grid grid-cols-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Number of Questions</label>
+                                        <select id="question-count" class="form-select">
+                                            <option value="5">5 Questions</option>
+                                            <option value="10" selected>10 Questions</option>
+                                            <option value="15">15 Questions</option>
+                                            <option value="20">20 Questions</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Difficulty Level</label>
+                                        <select id="difficulty-level" class="form-select">
+                                            <option value="easy">Easy</option>
+                                            <option value="medium" selected>Medium</option>
+                                            <option value="hard">Hard</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Question Types</label>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem;">
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="checkbox" id="mcq-type" value="multiple_choice" checked>
+                                            <span>Multiple Choice</span>
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="checkbox" id="short-type" value="short_answer" checked>
+                                            <span>Short Answer</span>
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="checkbox" id="long-type" value="essay">
+                                            <span>Essay Questions</span>
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="checkbox" id="tf-type" value="true_false">
+                                            <span>True/False</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary w-full">Generate Quiz</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Quizzes -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Quizzes</h3>
+                            <p class="card-description">Your created quizzes</p>
+                        </div>
+                        <div class="card-body">
+                            <div id="quizzes-container" style="min-height: 300px;">
+                                <div style="text-align: center; padding: 2rem; color: var(--neutral-400);">
+                                    No quizzes created yet
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Available Quizzes Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Available Quizzes</h2>
+                    <p class="section-description">Take quizzes based on your uploaded content</p>
+                </div>
+                
+                <div id="quizzes-grid" class="grid grid-cols-3">
+                    <!-- Quizzes will be populated here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 id="quiz-modal-title" class="modal-title">Quiz</h3>
+                <button class="modal-close" onclick="closeQuizModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="quiz-content">
+                    <!-- Quiz content will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/quiz.js?v=5"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# This file ensures the storage directory is tracked by git
+# The actual storage contents are ignored via .gitignore

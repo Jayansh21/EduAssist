@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAssist - Login</title>
+    <link rel="stylesheet" href="assets/css/design-system.css?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="card" style="max-width: 400px; width: 100%; margin: 2rem;">
+        <div class="card-body" style="text-align: center;">
+            <!-- Logo -->
+            <div style="margin-bottom: 2rem;">
+                <h1 style="font-size: 2.5rem; color: var(--primary-600); margin: 0 0 0.5rem 0;">🧠 EduAssist</h1>
+                <p style="color: var(--neutral-600); margin: 0;">AI-Powered Educational Platform</p>
+            </div>
+
+            <!-- Demo Credentials Info -->
+            <div style="background: var(--primary-50); border: 1px solid var(--primary-200); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 2rem;">
+                <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-700); font-size: 1rem;">Demo Credentials</h3>
+                <div style="font-size: 0.875rem; color: var(--primary-600);">
+                    <div><strong>Student:</strong> student@demo.com / demo123</div>
+                    <div><strong>Teacher:</strong> teacher@demo.com / demo123</div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-full btn-lg">Sign In</button>
+            </form>
+
+            <!-- Quick Demo Buttons -->
+            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--neutral-200);">
+                <p style="margin: 0 0 1rem 0; color: var(--neutral-600); font-size: 0.875rem;">Quick Demo Access:</p>
+                <div style="display: flex; gap: 0.75rem; flex-direction: column;">
+                    <button onclick="quickLogin('student')" class="btn btn-outline w-full">
+                        👨‍🎓 Student Demo
+                    </button>
+                    <button onclick="quickLogin('teacher')" class="btn btn-outline w-full">
+                        👨‍🏫 Teacher Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo credentials
+        const demoCredentials = {
+            student: {
+                email: 'student@demo.com',
+                password: 'demo123',
+                role: 'student'
+            },
+            teacher: {
+                email: 'teacher@demo.com',
+                password: 'demo123',
+                role: 'teacher'
+            }
+        };
+
+        // Handle form submission
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Check credentials
+            const user = authenticateUser(email, password);
+            
+            if (user) {
+                // Store user session
+                localStorage.setItem('user', JSON.stringify(user));
+                
+                // Redirect to appropriate dashboard
+                if (user.role === 'student') {
+                    window.location.href = 'student.html';
+                } else {
+                    window.location.href = 'teacher.html';
+                }
+            } else {
+                showNotification('Invalid credentials. Please try again.', 'error');
+            }
+        });
+
+        // Quick login function
+        function quickLogin(role) {
+            const user = demoCredentials[role];
+            localStorage.setItem('user', JSON.stringify(user));
+            
+            if (role === 'student') {
+                window.location.href = 'student.html';
+            } else {
+                window.location.href = 'teacher.html';
+            }
+        }
+
+        // Authentication function
+        function authenticateUser(email, password) {
+            // Check demo credentials
+            if (email === demoCredentials.student.email && password === demoCredentials.student.password) {
+                return demoCredentials.student;
+            }
+            if (email === demoCredentials.teacher.email && password === demoCredentials.teacher.password) {
+                return demoCredentials.teacher;
+            }
+            
+            // For demo purposes, accept any email/password combination
+            if (email.includes('student') || email.includes('@student')) {
+                return { ...demoCredentials.student, email: email };
+            } else if (email.includes('teacher') || email.includes('@teacher')) {
+                return { ...demoCredentials.teacher, email: email };
+            }
+            
+            return null;
+        }
+
+        // Enhanced notification function
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            // Set content and styling
+            const icons = {
+                success: '✅',
+                error: '❌',
+                warning: '⚠️',
+                info: 'ℹ️'
+            };
+            
+            const colors = {
+                success: 'var(--success-500)',
+                error: 'var(--error-500)',
+                warning: 'var(--warning-500)',
+                info: 'var(--primary-500)'
+            };
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 1.25rem;">${icons[type] || icons.info}</span>
+                    <span style="font-weight: 500;">${message}</span>
+                </div>
+            `;
+            
+            // Style the notification
+            notification.style.cssText = `
+                position: fixed;
+                top: 2rem;
+                right: 2rem;
+                background: white;
+                border: 1px solid ${colors[type] || colors.info};
+                border-radius: var(--radius-lg);
+                padding: 1rem 1.5rem;
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+                max-width: 400px;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+            `;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Check if user is already logged in
+        window.addEventListener('load', function() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                const userObj = JSON.parse(user);
+                if (userObj.role === 'student') {
+                    window.location.href = 'student.html';
+                } else {
+                    window.location.href = 'teacher.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
