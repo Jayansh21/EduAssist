@@ -37,8 +37,8 @@ An intelligent educational platform that transforms uploaded content into intera
 4. **Start the application:**
    
    **Option 1 - One-click start (Windows):**
-   ```powershell
-   ./start.ps1
+   ```cmd
+   start.bat
    ```
    
    **Option 2 - Manual start:**
@@ -165,7 +165,7 @@ eduassist/
 │   ├── assets/            # CSS, JS, and other assets
 │   └── server.py          # Custom frontend server
 ├── storage/               # File storage for uploads and processed content
-└── start.ps1             # One-click startup script
+└── start.bat             # One-click startup script
 ```
 
 ## 🚧 Next Steps: Building Advanced Features
