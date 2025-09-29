@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduAssist - Login</title>
+    <title>EduAssist - Sign Up</title>
     <link rel="stylesheet" href="assets/css/design-system.css?v=2">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,17 +27,8 @@
                 <p style="color: var(--neutral-600); margin: 0;">AI-Powered Educational Platform</p>
             </div>
 
-            <!-- Demo Credentials Info -->
-            <div style="background: var(--primary-50); border: 1px solid var(--primary-200); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 2rem;">
-                <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-700); font-size: 1rem;">Demo Credentials</h3>
-                <div style="font-size: 0.875rem; color: var(--primary-600);">
-                    <div><strong>Student:</strong> student@demo.com / demo123</div>
-                    <div><strong>Teacher:</strong> teacher@demo.com / demo123</div>
-                </div>
-            </div>
-
-            <!-- Login Form -->
-            <form id="login-form">
+            <!-- Sign Up Form -->
+            <form id="signup-form">
                 <div class="form-group">
                     <label class="form-label">Role</label>
                     <div class="role-selection">
@@ -59,111 +50,82 @@
                 </div>
                 
                 <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="fullname" class="form-input" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
                     <label class="form-label">Email</label>
                     <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Password</label>
-                    <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                    <input type="password" id="password" class="form-input" placeholder="Create a password" required>
                 </div>
                 
-                <button type="submit" class="btn btn-primary w-full btn-lg">Sign In</button>
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-full btn-lg">Create Account</button>
             </form>
             
-            <!-- Registration Link -->
+            <!-- Login Link -->
             <div style="margin-top: 1.5rem; text-align: center;">
-                <p style="color: var(--neutral-600); margin: 0;">New user?</p>
-                <a href="signup.html" style="color: var(--primary-600); text-decoration: none; font-weight: 600;">Register here</a>
-            </div>
-
-            <!-- Quick Demo Buttons -->
-            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--neutral-200);">
-                <p style="margin: 0 0 1rem 0; color: var(--neutral-600); font-size: 0.875rem;">Quick Demo Access:</p>
-                <div style="display: flex; gap: 0.75rem; flex-direction: column;">
-                    <button onclick="quickLogin('student')" class="btn btn-outline w-full">
-                        <i class="fas fa-user-graduate"></i> Student Demo
-                    </button>
-                    <button onclick="quickLogin('teacher')" class="btn btn-outline w-full">
-                        <i class="fas fa-chalkboard-teacher"></i> Teacher Demo
-                    </button>
-                </div>
+                <p style="color: var(--neutral-600); margin: 0;">Already have an account?</p>
+                <a href="login.html" style="color: var(--primary-600); text-decoration: none; font-weight: 600;">Sign in here</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Demo credentials
-        const demoCredentials = {
-            student: {
-                email: 'student@demo.com',
-                password: 'demo123',
-                role: 'student'
-            },
-            teacher: {
-                email: 'teacher@demo.com',
-                password: 'demo123',
-                role: 'teacher'
-            }
-        };
-
         // Handle form submission
-        document.getElementById('login-form').addEventListener('submit', function(e) {
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const fullname = document.getElementById('fullname').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
             const role = document.querySelector('input[name="role"]:checked').value;
             
-            // Check credentials
-            const user = authenticateUser(email, password, role);
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match. Please try again.', 'error');
+                return;
+            }
             
-            if (user) {
-                // Store user session
-                localStorage.setItem('user', JSON.stringify(user));
-                
-                // Redirect to appropriate dashboard
-                if (user.role === 'student') {
+            // Validate password strength
+            if (password.length < 6) {
+                showNotification('Password must be at least 6 characters long.', 'error');
+                return;
+            }
+            
+            // Create user object
+            const user = {
+                fullname: fullname,
+                email: email,
+                role: role,
+                createdAt: new Date().toISOString()
+            };
+            
+            // Store user session (in a real app, this would be sent to backend)
+            localStorage.setItem('user', JSON.stringify(user));
+            
+            // Show success message
+            showNotification('Account created successfully!', 'success');
+            
+            // Redirect to appropriate dashboard after a short delay
+            setTimeout(() => {
+                if (role === 'student') {
                     window.location.href = 'student.html';
                 } else {
                     window.location.href = 'teacher.html';
                 }
-            } else {
-                showNotification('Invalid credentials. Please try again.', 'error');
-            }
+            }, 1500);
         });
-
-        // Quick login function
-        function quickLogin(role) {
-            const user = demoCredentials[role];
-            localStorage.setItem('user', JSON.stringify(user));
-            
-            if (role === 'student') {
-                window.location.href = 'student.html';
-            } else {
-                window.location.href = 'teacher.html';
-            }
-        }
-
-        // Authentication function
-        function authenticateUser(email, password, role) {
-            // Check demo credentials
-            if (email === demoCredentials.student.email && password === demoCredentials.student.password && role === 'student') {
-                return demoCredentials.student;
-            }
-            if (email === demoCredentials.teacher.email && password === demoCredentials.teacher.password && role === 'teacher') {
-                return demoCredentials.teacher;
-            }
-            
-            // For demo purposes, accept any email/password combination with matching role
-            if (role === 'student' && (email.includes('student') || email.includes('@student'))) {
-                return { ...demoCredentials.student, email: email };
-            } else if (role === 'teacher' && (email.includes('teacher') || email.includes('@teacher'))) {
-                return { ...demoCredentials.teacher, email: email };
-            }
-            
-            return null;
-        }
 
         // Enhanced notification function
         function showNotification(message, type = 'info') {

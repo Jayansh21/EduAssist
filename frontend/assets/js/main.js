@@ -186,7 +186,7 @@ function initializeUploadFunctionality() {
                 loadUploadedFiles();
                 loadProcessedContent();
                 setTimeout(() => {
-                    fileList.innerHTML = '<div class="empty-state"><div class="empty-icon">📄</div><p>No files uploaded yet</p><small>Upload your first file to get started</small></div>';
+                    fileList.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fas fa-file"></i></div><p>No files uploaded yet</p><small>Upload your first file to get started</small></div>';
                 }, 3000);
             } else {
                 showMessage('Upload failed. Please try again.', 'error');
@@ -196,7 +196,7 @@ function initializeUploadFunctionality() {
             showMessage('Upload failed. Please try again.', 'error');
         } finally {
             uploadBtn.disabled = false;
-            uploadBtn.innerHTML = '<span class="btn-icon">📤</span>Upload Files';
+            uploadBtn.innerHTML = '<span class="btn-icon"><i class="fas fa-upload"></i></span>Upload Files';
         }
     }
 
@@ -264,7 +264,7 @@ function initializeUploadFunctionality() {
             if (content.length === 0) {
                 contentList.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-icon">📝</div>
+                        <div class="empty-icon"><i class="fas fa-file-alt"></i></div>
                         <p>No processed content yet</p>
                         <small>Upload and process files to see content here</small>
                     </div>
@@ -279,8 +279,8 @@ function initializeUploadFunctionality() {
                         <p>${(item.size / 1024).toFixed(1)} KB • ${item.type} • ${new Date(item.processedDate || Date.now()).toLocaleDateString()}</p>
                     </div>
                     <div class="content-actions">
-                        <button class="btn-view" onclick="viewContent('${item.path}', '${item.name}')">👁️ View</button>
-                        <button class="btn-delete" onclick="deleteProcessedContent('${item.path}')">🗑️ Delete</button>
+                        <button class="btn-view" onclick="viewContent('${item.path}', '${item.name}')"><i class="fas fa-eye"></i> View</button>
+                        <button class="btn-delete" onclick="deleteProcessedContent('${item.path}')"><i class="fas fa-trash"></i> Delete</button>
                     </div>
                 </div>
             `).join('');
@@ -329,7 +329,7 @@ function initializeUploadFunctionality() {
             if (files.length === 0) {
                 fileList.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-icon">📄</div>
+                        <div class="empty-icon"><i class="fas fa-file"></i></div>
                         <p>No files uploaded yet</p>
                         <small>Upload your first file to get started</small>
                     </div>
@@ -344,7 +344,7 @@ function initializeUploadFunctionality() {
                         <p>${(file.size / 1024 / 1024).toFixed(2)} MB • ${file.type} • ${new Date(file.uploadDate || Date.now()).toLocaleDateString()}</p>
                     </div>
                     <div class="content-actions">
-                        <button class="btn-delete" onclick="deleteUploadedFile('${file.path}')">🗑️ Delete</button>
+                        <button class="btn-delete" onclick="deleteUploadedFile('${file.path}')"><i class="fas fa-trash"></i> Delete</button>
                     </div>
                 </div>
             `).join('');
@@ -353,7 +353,7 @@ function initializeUploadFunctionality() {
             const fileList = document.getElementById('uploaded-files-list');
             fileList.innerHTML = `
                 <div class="empty-state">
-                    <div class="empty-icon">📄</div>
+                    <div class="empty-icon"><i class="fas fa-file"></i></div>
                     <p>No files uploaded yet</p>
                     <small>Upload your first file to get started</small>
                 </div>

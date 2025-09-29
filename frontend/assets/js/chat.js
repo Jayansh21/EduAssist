@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (content.length === 0) {
                 contentList.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-icon">📄</div>
+                        <div class="empty-icon"><i class="fas fa-file"></i></div>
                         <p>No content available</p>
                         <small>Upload files to start chatting</small>
                     </div>
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const messageEl = document.createElement('div');
         messageEl.className = `message ${type}`;
         
-        const avatar = type === 'user' ? '👤' : '🤖';
+        const avatar = type === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
         const messageContent = `
             <div class="message-avatar">${avatar}</div>
             <div class="message-content">
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h4>Sources:</h4>
                         ${[...new Set(sources.map(source => source.title))].map(filename => `
                             <div class="source-item">
-                                <span class="source-filename">📄 ${filename}</span>
+                                <span class="source-filename"><i class="fas fa-file"></i> ${filename}</span>
                             </div>
                         `).join('')}
                     </div>
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         typingEl.id = typingId;
         typingEl.className = 'message bot';
         typingEl.innerHTML = `
-            <div class="message-avatar">🤖</div>
+            <div class="message-avatar"><i class="fas fa-robot"></i></div>
             <div class="message-content">
                 <div class="typing-indicator">
                     <span>AI is thinking</span>
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li>📖 "Explain the main concepts in this document"</li>
                         <li>🔍 "What are the key points about [topic]?"</li>
                         <li>❓ "How does [concept] work?"</li>
-                        <li>📝 "Summarize the important information"</li>
+                        <li><i class="fas fa-file-alt"></i> "Summarize the important information"</li>
                     </ul>
                     <p>Try asking me anything about your uploaded materials!</p>
                 </div>
@@ -262,15 +262,15 @@ document.addEventListener('DOMContentLoaded', function() {
         messagesContainer.innerHTML = `
             <div class="message ai-message">
                 <div style="display: flex; align-items: start; gap: 0.75rem;">
-                    <div style="width: 32px; height: 32px; background: var(--primary-500); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.875rem;">🤖</div>
+                    <div style="width: 32px; height: 32px; background: var(--primary-500); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.875rem;"><i class="fas fa-robot"></i></div>
                     <div style="flex: 1;">
                         <div style="background: white; padding: 1rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
                             <p style="margin: 0 0 0.75rem 0; font-weight: 500;">Hello! I'm your AI assistant. I can help you with:</p>
                             <ul style="margin: 0; padding-left: 1.5rem; color: var(--neutral-600);">
-                                <li>📄 Summarizing your content</li>
-                                <li>🔍 Explaining key concepts</li>
-                                <li>🧠 Creating quizzes</li>
-                                <li>❓ Answering questions</li>
+                                <li><i class="fas fa-file"></i> Summarizing your content</li>
+                                <li><i class="fas fa-search"></i> Explaining key concepts</li>
+                                <li><i class="fas fa-brain"></i> Creating quizzes</li>
+                                <li><i class="fas fa-question-circle"></i> Answering questions</li>
                             </ul>
                             <p style="margin: 0.75rem 0 0 0; color: var(--neutral-600);">What would you like to know?</p>
                         </div>

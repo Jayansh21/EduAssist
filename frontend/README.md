@@ -19,7 +19,7 @@ npm start
 - **Backend API**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
 
-## 📁 Structure
+## Structure
 ```
 frontend/
 ├── index.html          # 📤 Upload page

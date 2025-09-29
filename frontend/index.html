@@ -7,11 +7,12 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>EduAssist - Content Upload</title>
-    <link rel="stylesheet" href="assets/css/design-system.css?v=5">
-    <link rel="stylesheet" href="assets/css/main.css?v=5">
+    <link rel="stylesheet" href="assets/css/design-system.css?v=6">
+    <link rel="stylesheet" href="assets/css/main.css?v=6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="app">
@@ -23,11 +24,15 @@
                     <span class="subtitle">Content Upload</span>
                 </div>
                 <nav class="main-nav">
-                    <a href="student.html" class="nav-link">👨‍🎓 Dashboard</a>
-                    <a href="index.html" class="nav-link active">📤 Upload</a>
-                    <a href="quiz.html" class="nav-link">🧠 Quiz</a>
-                    <a href="chat.html" class="nav-link">🤖 AI Tutor</a>
-                    <a href="flashcards.html" class="nav-link">🃏 Flashcards</a>
+                    <a href="student.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="index.html" class="nav-link active"><i class="fas fa-upload"></i> Upload</a>
+                    <a href="quiz.html" class="nav-link"><i class="fas fa-brain"></i> Quiz</a>
+                    <a href="chat.html" class="nav-link"><i class="fas fa-robot"></i> AI Tutor</a>
+                    <a href="flashcards.html" class="nav-link"><i class="fas fa-layer-group"></i> Flashcards</a>
+                    <button class="theme-toggle">
+                        <span class="theme-icon"><i class="fas fa-moon"></i></span>
+                        <span class="theme-text">Dark</span>
+                    </button>
                     <button onclick="logout()" class="btn btn-sm btn-outline">Logout</button>
                 </nav>
             </div>
@@ -47,7 +52,7 @@
                         <form id="upload-form">
                             <div id="dropzone" class="dropzone">
                                 <div style="text-align: center; padding: 3rem;">
-                                    <div style="font-size: 4rem; margin-bottom: 1rem; color: var(--primary-400);">📁</div>
+                                    <div style="font-size: 4rem; margin-bottom: 1rem; color: var(--primary-400);"><i class="fas fa-folder-open"></i></div>
                                     <h3 style="margin: 0 0 0.5rem 0; color: var(--neutral-700);">Drag & Drop Files Here</h3>
                                     <p style="margin: 0 0 1.5rem 0; color: var(--neutral-500);">or click to browse</p>
                                     <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
@@ -62,7 +67,7 @@
                             
                             <div style="text-align: center; margin-top: 1.5rem;">
                                 <button id="upload-btn" type="submit" class="btn btn-primary btn-lg">
-                                    📤 Upload & Process
+                                    <i class="fas fa-upload"></i> Upload & Process
                                 </button>
                             </div>
                         </form>
@@ -78,10 +83,10 @@
                         <div class="card-header">
                             <div style="display: flex; justify-content: between; align-items: center;">
                                 <div>
-                                    <h3 class="card-title">📝 Processed Content</h3>
+                                    <h3 class="card-title"><i class="fas fa-file-alt"></i> Processed Content</h3>
                                     <p class="card-description">AI-enhanced educational materials</p>
                                 </div>
-                                <button id="refresh-processed" class="btn btn-sm btn-outline">🔄 Refresh</button>
+                                <button id="refresh-processed" class="btn btn-sm btn-outline"><i class="fas fa-sync-alt"></i> Refresh</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -98,10 +103,10 @@
                         <div class="card-header">
                             <div style="display: flex; justify-content: between; align-items: center;">
                                 <div>
-                                    <h3 class="card-title">📄 Uploaded Files</h3>
+                                    <h3 class="card-title"><i class="fas fa-file"></i> Uploaded Files</h3>
                                     <p class="card-description">Your original files</p>
                                 </div>
-                                <button id="refresh-uploaded" class="btn btn-sm btn-outline">🔄 Refresh</button>
+                                <button id="refresh-uploaded" class="btn btn-sm btn-outline"><i class="fas fa-sync-alt"></i> Refresh</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -126,8 +131,8 @@
             </div>
             <div class="modal-body">
                 <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--neutral-200);">
-                    <button class="btn btn-sm btn-outline tab-btn active" onclick="switchTab('transcript')">📄 Transcript</button>
-                    <button class="btn btn-sm btn-outline tab-btn" onclick="switchTab('summary')">📝 Summary</button>
+                    <button class="btn btn-sm btn-outline tab-btn active" onclick="switchTab('transcript')"><i class="fas fa-file-text"></i> Transcript</button>
+                    <button class="btn btn-sm btn-outline tab-btn" onclick="switchTab('summary')"><i class="fas fa-file-alt"></i> Summary</button>
                 </div>
                 
                 <div id="transcript-content" class="tab-content">
@@ -145,7 +150,8 @@
         </div>
     </div>
 
-    <script src="assets/js/main.js?v=5"></script>
+    <script src="assets/js/theme-toggle.js?v=6"></script>
+    <script src="assets/js/main.js?v=6"></script>
     
     <style>
         /* Override header for upload page */

@@ -319,7 +319,7 @@ function updatePreview() {
     if (currentFlashcards.length === 0) {
         preview.innerHTML = `
             <div style="text-align: center; color: var(--neutral-500);">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">🃏</div>
+                <div style="font-size: 4rem; margin-bottom: 1rem;"><i class="fas fa-layer-group"></i></div>
                 <h4 style="margin: 0 0 0.5rem 0; color: var(--neutral-700);">Generate Your First Set</h4>
                 <p style="margin: 0; font-size: 0.875rem;">Configure settings and generate flashcards to see them here</p>
             </div>

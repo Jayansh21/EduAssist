@@ -118,7 +118,7 @@ async function loadRecentContent() {
             container.innerHTML = recentContent.map(content => `
                 <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background-color: var(--neutral-50); border-radius: var(--radius-lg); border: 1px solid var(--neutral-200);">
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <div style="width: 40px; height: 40px; background-color: var(--primary-100); color: var(--primary-600); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">📄</div>
+                        <div style="width: 40px; height: 40px; background-color: var(--primary-100); color: var(--primary-600); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;"><i class="fas fa-file"></i></div>
                         <div>
                             <h4 style="margin: 0; font-size: 0.875rem; font-weight: 600; color: var(--neutral-800);">${content.name}</h4>
                             <p style="margin: 0; font-size: 0.75rem; color: var(--neutral-500);">Processed • ${formatDate(content.processedDate)}</p>
@@ -130,7 +130,7 @@ async function loadRecentContent() {
         } else {
             container.innerHTML = `
                 <div style="text-align: center; padding: 2rem; color: var(--neutral-400);">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📝</div>
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-file-alt"></i></div>
                     <h4 style="margin: 0; font-size: 0.875rem; color: var(--neutral-600);">No content processed yet</h4>
                     <p style="margin: 0; font-size: 0.75rem; color: var(--neutral-500);">Upload some educational materials to get started</p>
                 </div>
@@ -158,7 +158,7 @@ async function loadRecentQuizzes() {
             container.innerHTML = recentQuizzes.map(quiz => `
                 <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background-color: var(--neutral-50); border-radius: var(--radius-lg); border: 1px solid var(--neutral-200);">
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <div style="width: 40px; height: 40px; background-color: var(--primary-100); color: var(--primary-600); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">🧠</div>
+                        <div style="width: 40px; height: 40px; background-color: var(--primary-100); color: var(--primary-600); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;"><i class="fas fa-brain"></i></div>
                         <div>
                             <h4 style="margin: 0; font-size: 0.875rem; font-weight: 600; color: var(--neutral-800);">${quiz.title}</h4>
                             <p style="margin: 0; font-size: 0.75rem; color: var(--neutral-500);">${quiz.totalQuestions} questions • ${formatDate(quiz.createdDate)}</p>
@@ -212,11 +212,11 @@ function generateStudyPlan() {
     
     // Generate a smart study plan based on available content
     const studyTasks = [
-        { time: '09:00', task: 'Review uploaded materials and summaries', icon: '📚' },
-        { time: '10:30', task: 'Take practice quiz on recent content', icon: '🧠' },
-        { time: '14:00', task: 'Ask AI tutor about difficult concepts', icon: '🤖' },
-        { time: '16:00', task: 'Create flashcards from key points', icon: '📇' },
-        { time: '19:00', task: 'Review quiz results and explanations', icon: '📊' }
+        { time: '09:00', task: 'Review uploaded materials and summaries', icon: '<i class="fas fa-book"></i>' },
+        { time: '10:30', task: 'Take practice quiz on recent content', icon: '<i class="fas fa-brain"></i>' },
+        { time: '14:00', task: 'Ask AI tutor about difficult concepts', icon: '<i class="fas fa-robot"></i>' },
+        { time: '16:00', task: 'Create flashcards from key points', icon: '<i class="fas fa-layer-group"></i>' },
+        { time: '19:00', task: 'Review quiz results and explanations', icon: '<i class="fas fa-chart-bar"></i>' }
     ];
     
     // Filter tasks for remaining hours of the day
@@ -238,7 +238,7 @@ function generateStudyPlan() {
     } else {
         scheduleContainer.innerHTML = `
             <div style="display: flex; align-items: center; padding: 2rem; background-color: var(--success-50); border-radius: var(--radius-lg); border-left: 4px solid var(--success-500); text-align: center;">
-                <div style="width: 40px; height: 40px; background-color: var(--success-100); color: var(--success-600); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-right: 1rem;">✅</div>
+                <div style="width: 40px; height: 40px; background-color: var(--success-100); color: var(--success-600); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-right: 1rem;"><i class="fas fa-check-circle"></i></div>
                 <div>
                     <div style="font-weight: 600; color: var(--success-800); font-size: 0.875rem;">Great job!</div>
                     <div style="color: var(--success-700); font-size: 0.875rem;">You've completed today's study plan. Consider reviewing your progress or starting tomorrow's preparation.</div>
@@ -342,10 +342,10 @@ function showNotification(message, type = 'info') {
     
     // Set content and styling
     const icons = {
-        success: '✅',
-        error: '❌',
-        warning: '⚠️',
-        info: 'ℹ️'
+        success: '<i class="fas fa-check-circle"></i>',
+        error: '<i class="fas fa-times-circle"></i>',
+        warning: '<i class="fas fa-exclamation-triangle"></i>',
+        info: '<i class="fas fa-info-circle"></i>'
     };
     
     const colors = {

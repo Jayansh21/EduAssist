@@ -107,7 +107,7 @@ async function loadTeacherAssignments() {
         } else {
             container.innerHTML = `
                 <div style="text-align: center; padding: 2rem; color: var(--neutral-400);">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📝</div>
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-file-alt"></i></div>
                     <h4 style="margin: 0; font-size: 0.875rem; color: var(--neutral-600);">No assignments created yet</h4>
                     <p style="margin: 0; font-size: 0.75rem; color: var(--neutral-500);">Create your first assignment to get started</p>
                 </div>
@@ -618,10 +618,10 @@ function showNotification(message, type = 'info') {
     
     // Set content and styling
     const icons = {
-        success: '✅',
-        error: '❌',
-        warning: '⚠️',
-        info: 'ℹ️'
+        success: '<i class="fas fa-check-circle"></i>',
+        error: '<i class="fas fa-times-circle"></i>',
+        warning: '<i class="fas fa-exclamation-triangle"></i>',
+        info: '<i class="fas fa-info-circle"></i>'
     };
     
     const colors = {

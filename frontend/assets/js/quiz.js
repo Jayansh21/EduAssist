@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading quizzes:', error);
             quizzesContainer.innerHTML = `
                 <div class="error-message">
-                    <p>❌ Error loading quizzes. Please try again.</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Error loading quizzes. Please try again.</p>
                     <button onclick="loadQuizzes()" class="btn-secondary">Retry</button>
                 </div>
             `;
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (quizzes.length === 0) {
             quizzesContainer.innerHTML = `
                 <div class="empty-state">
-                    <div class="empty-icon">🧠</div>
+                    <div class="empty-icon"><i class="fas fa-brain"></i></div>
                     <p>No quizzes available</p>
                     <small>Create your first quiz to get started</small>
                 </div>
@@ -129,13 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="quiz-actions" style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap;">
                     <button class="btn btn-primary" onclick="startQuiz('${quiz.id}')" title="Start taking this quiz" style="flex: 1; min-width: 120px;">
-                        📝 Take Test
+                        <i class="fas fa-file-alt"></i> Take Test
                     </button>
                     <button class="btn btn-secondary" onclick="downloadQuizFromList('${quiz.id}')" title="Download quiz as PDF" style="flex: 1; min-width: 120px;">
-                        📥 Download
+                        <i class="fas fa-download"></i> Download
                     </button>
                     <button class="btn" onclick="deleteQuiz('${quiz.id}')" title="Delete this quiz" style="flex: 1; min-width: 120px; background: var(--error-500); color: white;">
-                        🗑️ Delete
+                        <i class="fas fa-trash"></i> Delete
                     </button>
                 </div>
             </div>
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
             questionsContainer.innerHTML = `
                 <div class="submit-card">
                     <div class="submit-header">
-                        <h3>📝 Quiz Complete!</h3>
+                        <h3><i class="fas fa-file-alt"></i> Quiz Complete!</h3>
                         <p>You have answered ${answeredQuestions} out of ${totalQuestions} questions.</p>
                     </div>
                     <div class="submit-content">
